@@ -1,0 +1,684 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane
+        xmlns="http://javafx.com/javafx"
+        xmlns:fx="http://javafx.com/fxml"
+        fx:controller="guessmarket.ui.MainController">
+
+    <children>
+
+        <VBox
+                spacing="10"
+                AnchorPane.topAnchor="10"
+                AnchorPane.bottomAnchor="10"
+                AnchorPane.leftAnchor="10"
+                AnchorPane.rightAnchor="10">
+
+            <padding>
+                <Insets
+                        top="5"
+                        right="5"
+                        bottom="5"
+                        left="5"/>
+            </padding>
+
+
+            <!-- Title -->
+            <Label
+                    fx:id="titleLabel"
+                    text="Guess Market"
+                    style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+
+            <!-- File loading -->
+            <HBox
+                    spacing="10">
+
+                <Button
+                        fx:id="loadFileButton"
+                        text="Load File"
+                        onAction="#handleLoadFile"/>
+
+                <Label
+                        text="Currently loaded:"/>
+
+                <Label
+                        fx:id="filePathLabel"
+                        text=""
+                        wrapText="true"/>
+
+                <CheckBox
+                        fx:id="enableStartupAnimationsCheckBox"
+                        text="Enable startup animations"
+                        selected="false"/>
+            </HBox>
+
+
+            <ProgressBar
+                    fx:id="progressBar"
+                    prefWidth="300"
+                    progress="0"/>
+
+
+            <Label
+                    fx:id="statusLabel"
+                    text="No XML loaded"/>
+
+
+            <Separator/>
+
+
+            <!-- Scrollable main content -->
+            <ScrollPane
+                    fitToWidth="true"
+                    pannable="true"
+                    VBox.vgrow="ALWAYS">
+
+                <content>
+
+                    <HBox
+                            spacing="25"
+                            style="-fx-padding: 10;">
+
+
+                        <!-- ================= USERS ================= -->
+
+                        <VBox
+                                spacing="10"
+                                prefWidth="300">
+
+                            <Label
+                                    text="Other Users"
+                                    style="-fx-font-size: 17px; -fx-font-weight: bold;"/>
+
+
+                            <ListView
+                                    fx:id="usersListView"
+                                    prefHeight="160"
+                                    onMouseClicked="#handleUserSelection"/>
+
+
+                            <Separator/>
+
+
+                            <Label
+                                    text="Chat"
+                                    style="-fx-font-size: 15px; -fx-font-weight: bold;"/>
+
+
+                            <ListView
+                                    fx:id="chatListView"
+                                    prefHeight="140"
+                                    editable="false"/>
+
+
+                            <HBox
+                                    spacing="8">
+
+                                <TextField
+                                        fx:id="chatMessageField"
+                                        promptText="Type a message"
+                                        HBox.hgrow="ALWAYS"
+                                        onAction="#handleChatSend"/>
+
+                                <Button
+                                        fx:id="chatSendButton"
+                                        text="Send"
+                                        onAction="#handleChatSend"/>
+
+                            </HBox>
+
+
+                            <Label
+                                    fx:id="chatStatusLabel"
+                                    text=""
+                                    wrapText="true"/>
+
+
+                            <Label
+                                    text="My Account"
+                                    style="-fx-font-size: 15px; -fx-font-weight: bold;"/>
+
+
+                            <Label
+                                    fx:id="selectedUserNameLabel"
+                                    text=""/>
+
+
+                            <Label
+                                    fx:id="selectedUserCashLabel"
+                                    text=""/>
+
+
+                            <Label
+                                    fx:id="selectedUserBlockedLabel"
+                                    text=""/>
+
+                            <HBox spacing="8">
+                                <TextField
+                                        fx:id="addFundsAmountField"
+                                        promptText="Amount"
+                                        prefWidth="120"/>
+                                <Button
+                                        fx:id="addFundsButton"
+                                        text="Add Funds"
+                                        onAction="#handleAddFunds"/>
+                            </HBox>
+
+                            <Label
+                                    text="Account History"
+                                    style="-fx-font-size: 15px; -fx-font-weight: bold;"/>
+
+                            <ListView
+                                    fx:id="accountHistoryListView"
+                                    prefHeight="110"/>
+
+                            <Label
+                                    fx:id="selectedUserHoldingsLabel"
+                                    text=""
+                                    wrapText="true"/>
+
+
+                            <Separator/>
+
+
+                            <Label
+                                    text="Active Participated Events"
+                                    style="-fx-font-size: 15px; -fx-font-weight: bold;"/>
+
+
+                            <ListView
+                                    fx:id="userActiveEventsListView"
+                                    prefHeight="110"/>
+
+
+                            <Label
+                                    text="Closed Participated Events"
+                                    style="-fx-font-size: 15px; -fx-font-weight: bold;"/>
+
+
+                            <ListView
+                                    fx:id="userClosedEventsListView"
+                                    prefHeight="110"/>
+
+
+                            <Label
+                                    fx:id="userEventDetailsTitleLabel"
+                                    text=""/>
+
+
+                            <Label
+                                    fx:id="userEventCommissionLabel"
+                                    text=""/>
+
+
+                            <VBox
+                                    fx:id="userLmsrDetailsBox"
+                                    spacing="6">
+
+                                <Label
+                                        text="LMSR Transactions"/>
+
+                                <ListView
+                                        fx:id="userLmsrTradesListView"
+                                        prefHeight="110"/>
+
+                                <Label
+                                        fx:id="userLmsrClosedInfoLabel"
+                                        text=""
+                                        wrapText="true"/>
+
+                            </VBox>
+
+
+                            <VBox
+                                    fx:id="userObDetailsBox"
+                                    spacing="6">
+
+                                <Label
+                                        text="Order Book Holdings"/>
+
+                                <ListView
+                                        fx:id="userObHoldingsListView"
+                                        prefHeight="110"/>
+
+                                <Label
+                                        fx:id="userObProfitLossLabel"
+                                        text=""
+                                        wrapText="true"/>
+
+                            </VBox>
+
+                        </VBox>
+
+
+                        <!-- ================= EVENTS ================= -->
+
+                        <VBox
+                                spacing="8"
+                                prefWidth="500">
+
+                            <Label
+                                    text="Events"
+                                    style="-fx-font-size: 17px; -fx-font-weight: bold;"/>
+
+
+                            <fx:define>
+                                <ToggleGroup
+                                        fx:id="methodFilterGroup"/>
+                                <ToggleGroup
+                                        fx:id="statusFilterGroup"/>
+                                <ToggleGroup
+                                        fx:id="commissionFilterGroup"/>
+                            </fx:define>
+
+
+                            <HBox
+                                    spacing="8">
+
+                                <Label
+                                        text="Method:"/>
+
+                                <ToggleButton
+                                        fx:id="filterMethodAllButton"
+                                        text="All"
+                                        selected="true"
+                                        toggleGroup="$methodFilterGroup"/>
+
+                                <ToggleButton
+                                        fx:id="filterMethodLmsrButton"
+                                        text="LMSR"
+                                        toggleGroup="$methodFilterGroup"/>
+
+                                <ToggleButton
+                                        fx:id="filterMethodOrderBookButton"
+                                        text="Order Book"
+                                        toggleGroup="$methodFilterGroup"/>
+
+                            </HBox>
+
+
+                            <HBox
+                                    spacing="8">
+
+                                <Label
+                                        text="Status:"/>
+
+                                <ToggleButton
+                                        fx:id="filterStatusAllButton"
+                                        text="All"
+                                        selected="true"
+                                        toggleGroup="$statusFilterGroup"/>
+
+                                <ToggleButton
+                                        fx:id="filterStatusNotStartedButton"
+                                        text="Not Started"
+                                        toggleGroup="$statusFilterGroup"/>
+
+                                <ToggleButton
+                                        fx:id="filterStatusActiveButton"
+                                        text="Active"
+                                        toggleGroup="$statusFilterGroup"/>
+
+                                <ToggleButton
+                                        fx:id="filterStatusClosedButton"
+                                        text="Closed"
+                                        toggleGroup="$statusFilterGroup"/>
+
+                            </HBox>
+
+
+                            <HBox
+                                    spacing="8">
+
+                                <Label
+                                        text="Commission:"/>
+
+                                <ToggleButton
+                                        fx:id="filterCommissionAllButton"
+                                        text="All"
+                                        selected="true"
+                                        toggleGroup="$commissionFilterGroup"/>
+
+                                <ToggleButton
+                                        fx:id="filterCommissionOnCloseButton"
+                                        text="on-close"
+                                        toggleGroup="$commissionFilterGroup"/>
+
+                                <ToggleButton
+                                        fx:id="filterCommissionOnPurchaseButton"
+                                        text="on-purchase"
+                                        toggleGroup="$commissionFilterGroup"/>
+
+                            </HBox>
+
+
+                            <ListView
+                                    fx:id="eventsListView"
+                                    prefHeight="130"
+                                    onMouseClicked="#handleEventSelection"/>
+
+
+                            <Label
+                                    text="Selected Event"
+                                    style="-fx-font-size: 15px; -fx-font-weight: bold;"/>
+
+
+                            <Label
+                                    fx:id="eventIdLabel"
+                                    text=""/>
+
+                            <Label
+                                    fx:id="eventNameLabel"
+                                    text=""/>
+
+                            <Label
+                                    fx:id="eventStatusLabel"
+                                    text=""/>
+
+                            <Label
+                                    fx:id="eventDescriptionLabel"
+                                    text=""
+                                    wrapText="true"/>
+
+                            <Label
+                                    fx:id="eventCommissionLabel"
+                                    text=""/>
+
+                            <Label
+                                    fx:id="eventAccountBalanceLabel"
+                                    text=""/>
+
+                            <Label
+                                    fx:id="eventOptionsLabel"
+                                    text=""
+                                    wrapText="true"/>
+
+                            <Label
+                                    fx:id="eventMethodLabel"
+                                    text=""/>
+
+                            <Label
+                                    fx:id="marketParam1Label"
+                                    text=""/>
+
+                            <Label
+                                    fx:id="marketParam2Label"
+                                    text=""/>
+
+                            <Label
+                                    fx:id="marketParam3Label"
+                                    text=""/>
+
+
+                            <!-- LMSR trading status (updated EX1 command 3) -->
+                            <VBox
+                                    fx:id="lmsrDetailsBox"
+                                    spacing="6">
+
+                                <Label
+                                        text="LMSR Trading Status"
+                                        style="-fx-font-size: 15px; -fx-font-weight: bold;"/>
+
+                                <Label
+                                        fx:id="lmsrOption1StateLabel"
+                                        text=""/>
+
+                                <Label
+                                        fx:id="lmsrOption2StateLabel"
+                                        text=""/>
+
+                                <Label
+                                        fx:id="lmsrCollectedCommissionLabel"
+                                        text=""/>
+
+                                <Label
+                                        text="Trade history (newest first):"/>
+
+                                <ListView
+                                        fx:id="lmsrTradeHistoryListView"
+                                        prefHeight="110"/>
+
+                                <Label
+                                        fx:id="lmsrClosedSummaryLabel"
+                                        text=""
+                                        wrapText="true"/>
+
+                                <Label
+                                        text="LMSR Purchase"/>
+
+                                <HBox
+                                        spacing="8">
+
+                                    <ComboBox
+                                            fx:id="lmsrPurchaseOptionComboBox"
+                                            promptText="Option"
+                                            prefWidth="170"/>
+
+                                    <TextField
+                                            fx:id="lmsrPurchaseQuantityField"
+                                            promptText="Quantity"
+                                            prefWidth="80"/>
+
+                                    <Button
+                                            fx:id="lmsrPurchaseButton"
+                                            text="Buy"/>
+
+                                </HBox>
+
+                                <Label
+                                        text="Close LMSR Event"/>
+
+                                <HBox
+                                        spacing="8">
+
+                                    <ComboBox
+                                            fx:id="lmsrWinnerComboBox"
+                                            promptText="Winning option"
+                                            prefWidth="170"/>
+
+                                    <Button
+                                            fx:id="lmsrCloseButton"
+                                            text="Close Event"/>
+
+                                </HBox>
+
+                            </VBox>
+
+
+                            <!-- Open event -->
+                            <Button
+                                    fx:id="openEventButton"
+                                    text="Open Event"
+                                    disable="true"
+                                    onAction="#handleOpenEvent"/>
+
+
+                            <!-- Close event -->
+                            <HBox
+                                    spacing="10">
+
+                                <Label
+                                        text="Winner:"/>
+
+                                <ComboBox
+                                        fx:id="winnerComboBox"
+                                        prefWidth="170"
+                                        disable="true"/>
+
+                                <Button
+                                        fx:id="closeEventButton"
+                                        text="Close Event"
+                                        disable="true"
+                                        onAction="#handleCloseEvent"/>
+
+                            </HBox>
+
+
+                            <Separator/>
+
+
+                            <!-- ORDER BOOK -->
+                            <Label
+                                    text="Order Book Action"
+                                    style="-fx-font-size: 15px; -fx-font-weight: bold;"/>
+
+
+                            <HBox
+                                    spacing="8">
+
+                                <ComboBox
+                                        fx:id="orderOptionComboBox"
+                                        promptText="Option"
+                                        prefWidth="120"
+                                        disable="true"
+                                        onAction="#handleOrderOptionSelection"/>
+
+
+                                <ComboBox
+                                        fx:id="orderTypeComboBox"
+                                        promptText="BUY / SELL"
+                                        prefWidth="110"
+                                        disable="true"/>
+
+
+                                <TextField
+                                        fx:id="orderQuantityField"
+                                        promptText="Quantity"
+                                        prefWidth="80"
+                                        disable="true"/>
+
+
+                                <TextField
+                                        fx:id="orderPriceField"
+                                        promptText="Price"
+                                        prefWidth="80"
+                                        disable="true"/>
+
+
+                                <Button
+                                        fx:id="submitOrderButton"
+                                        text="Submit"
+                                        disable="true"
+                                        onAction="#handleSubmitOrder"/>
+
+                            </HBox>
+
+
+                            <!-- Statistics line 1 -->
+                            <HBox
+                                    spacing="18">
+
+                                <HBox spacing="4">
+                                    <Label
+                                            text="LAST:"
+                                            style="-fx-font-weight: bold;"/>
+
+                                    <Label
+                                            fx:id="lastPriceLabel"
+                                            text="N/A"/>
+                                </HBox>
+
+
+                                <HBox spacing="4">
+                                    <Label
+                                            text="BID:"
+                                            style="-fx-font-weight: bold;"/>
+
+                                    <Label
+                                            fx:id="bidPriceLabel"
+                                            text="N/A"/>
+                                </HBox>
+
+
+                                <HBox spacing="4">
+                                    <Label
+                                            text="ASK:"
+                                            style="-fx-font-weight: bold;"/>
+
+                                    <Label
+                                            fx:id="askPriceLabel"
+                                            text="N/A"/>
+                                </HBox>
+
+                            </HBox>
+
+
+                            <!-- Statistics line 2 -->
+                            <HBox
+                                    spacing="18">
+
+                                <HBox spacing="4">
+                                    <Label
+                                            text="MID:"
+                                            style="-fx-font-weight: bold;"/>
+
+                                    <Label
+                                            fx:id="midPriceLabel"
+                                            text="N/A"/>
+                                </HBox>
+
+
+                                <HBox spacing="4">
+                                    <Label
+                                            text="SPREAD:"
+                                            style="-fx-font-weight: bold;"/>
+
+                                    <Label
+                                            fx:id="spreadLabel"
+                                            text="N/A"/>
+                                </HBox>
+
+                            </HBox>
+
+
+                            <!-- Pending Orders -->
+                            <Label
+                                    text="Pending Orders"
+                                    style="-fx-font-size: 15px; -fx-font-weight: bold;"/>
+
+
+                            <ListView
+                                    fx:id="pendingOrdersListView"
+                                    prefHeight="125"/>
+
+
+                            <!-- Participants -->
+                            <Label
+                                    text="Participants"
+                                    style="-fx-font-size: 15px; -fx-font-weight: bold;"/>
+
+
+                            <ListView
+                                    fx:id="participantsListView"
+                                    prefHeight="140"/>
+
+                        </VBox>
+
+                    </HBox>
+
+                </content>
+
+            </ScrollPane>
+
+        </VBox>
+
+    </children>
+
+</AnchorPane>
